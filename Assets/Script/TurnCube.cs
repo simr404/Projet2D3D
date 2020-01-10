@@ -9,9 +9,11 @@ public class TurnCube : MonoBehaviour
     public enum TurnMap { Right, Left};
     public TurnMap TurnMovement;
     Quaternion QDesiredRot;
+    public int iTurnToFace;
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -28,10 +30,12 @@ public class TurnCube : MonoBehaviour
         if (TurnMovement == TurnMap.Left)
         {
             StartCoroutine(Rotate(Vector3.down, 90, 0.5f));
+            Cube.GetComponent<CCubeFace>().ChangeFace(iTurnToFace);
         }
         else if (TurnMovement == TurnMap.Right)
         {
             StartCoroutine(Rotate(Vector3.up, 90, 0.5f));
+            Cube.GetComponent<CCubeFace>().ChangeFace(iTurnToFace);
         }
         Cube.transform.Rotate(new Vector3());
     }

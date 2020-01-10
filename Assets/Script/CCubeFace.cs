@@ -5,11 +5,12 @@ using UnityEngine;
 public class CCubeFace : MonoBehaviour
 {
     public List<GameObject> lgFaces;
-    GameObject gActiveFace;
+    public int gActiveFace;
     // Start is called before the first frame update
     void Start()
     {
-        
+        lgFaces = new List<GameObject>();
+        gActiveFace = 0;
     }
 
     // Update is called once per frame
@@ -20,6 +21,11 @@ public class CCubeFace : MonoBehaviour
 
     public void ChangeFace(int faceindex)
     {
-
+        foreach (var item in lgFaces)
+        {
+            item.SetActive(false);
+        }
+        lgFaces[faceindex].SetActive(true);
+        gActiveFace = faceindex;
     }
 }
