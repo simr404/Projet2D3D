@@ -25,6 +25,10 @@ public class TurnCube : MonoBehaviour
         print(VRotate);
         if (TurnMovement == TurnMap.Left)
         {
+            while (Cube.transform.localRotation.eulerAngles != VRotate - new Vector3(0,90))
+            {
+
+            }
             Cube.transform.Rotate(new Vector3(0, 90));
         }
         else if (TurnMovement == TurnMap.Right)
