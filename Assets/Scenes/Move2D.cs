@@ -36,5 +36,10 @@ public class Move2D : MonoBehaviour
 
             rb.velocity = new Vector2(xDir * speed, rb.velocity.y);
         }
+
+        else
+        {
+            rb.velocity = new Vector2(0,0);
+        }
     }
 }

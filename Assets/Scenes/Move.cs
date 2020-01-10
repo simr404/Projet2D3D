@@ -49,5 +49,10 @@ public class Move : MonoBehaviour
 
             rb.velocity = new Vector3(xDir * speed, rb.velocity.y, zDir * speed);
         }
+
+        else
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+        }
     }
 }
