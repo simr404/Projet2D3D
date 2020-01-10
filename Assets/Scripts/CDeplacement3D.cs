@@ -76,7 +76,7 @@ public class CDeplacement3D : MonoBehaviour
 
     private void Movement(float X, float Y, float Z)
     {
-        Vector3 newPosition = new Vector3(X, 0, Z);
+        Vector3 newPosition = Camera.main.transform.right * X + Camera.main.transform.forward * Z;
         m_rbRigidBody.velocity = newPosition * m_fMoveSpeed + Vector3.up * Y;
     }
 }
