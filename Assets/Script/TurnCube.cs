@@ -10,6 +10,8 @@ public class TurnCube : MonoBehaviour
     public TurnMap TurnMovement;
     Quaternion QDesiredRot;
     public int iTurnToFace;
+    public GameObject Player;
+    Vector3 V3PlayerPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +29,15 @@ public class TurnCube : MonoBehaviour
         VRotate = Cube.transform.rotation.eulerAngles;
         
         print(VRotate);
+        V3PlayerPos = Player.transform.position;
         if (TurnMovement == TurnMap.Left)
         {
             StartCoroutine(Rotate(Vector3.down, 90, 0.5f));
-            Cube.GetComponent<CCubeFace>().ChangeFace(iTurnToFace);
         }
         else if (TurnMovement == TurnMap.Right)
         {
             StartCoroutine(Rotate(Vector3.up, 90, 0.5f));
-            Cube.GetComponent<CCubeFace>().ChangeFace(iTurnToFace);
         }
-        Cube.transform.Rotate(new Vector3());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,6 +62,9 @@ public class TurnCube : MonoBehaviour
             yield return null;
         }
         Cube.transform.rotation = to;
+        Cube.GetComponent<CCubeFace>().ChangeFace(iTurnToFace);
+        Player.transform.position = V3PlayerPos - new Vector3(axis.y, 0);
+        Player.transform.Rotate(new Vector3(0, 90));
     }
 
 }

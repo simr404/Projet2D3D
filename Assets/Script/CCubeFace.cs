@@ -9,8 +9,12 @@ public class CCubeFace : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lgFaces = new List<GameObject>();
         gActiveFace = 0;
+        foreach (var item in lgFaces)
+        {
+            item.SetActive(false);
+        }
+        lgFaces[gActiveFace].SetActive(true);
     }
 
     // Update is called once per frame
@@ -25,7 +29,7 @@ public class CCubeFace : MonoBehaviour
         {
             item.SetActive(false);
         }
-        lgFaces[faceindex].SetActive(true);
         gActiveFace = faceindex;
+        lgFaces[gActiveFace].SetActive(true);
     }
 }
