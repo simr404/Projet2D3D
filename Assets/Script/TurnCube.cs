@@ -8,6 +8,7 @@ public class TurnCube : MonoBehaviour
     public GameObject Cube;
     public enum TurnMap { Right, Left};
     public TurnMap TurnMovement;
+    Quaternion QDesiredRot;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,24 +17,21 @@ public class TurnCube : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Turn()
     {
         VRotate = Cube.transform.rotation.eulerAngles;
+        
         print(VRotate);
         if (TurnMovement == TurnMap.Left)
         {
-            while (Cube.transform.localRotation.eulerAngles != VRotate - new Vector3(0,90))
-            {
-
-            }
-            Cube.transform.Rotate(new Vector3(0, 90));
+            StartCoroutine(Rotate(Vector3.down, 90, 0.5f));
         }
         else if (TurnMovement == TurnMap.Right)
         {
-            Cube.transform.Rotate(new Vector3(0, -90));
+            StartCoroutine(Rotate(Vector3.up, 90, 0.5f));
         }
         Cube.transform.Rotate(new Vector3());
     }
@@ -45,4 +43,21 @@ public class TurnCube : MonoBehaviour
             Turn();
         }
     }
+
+    IEnumerator Rotate(Vector3 axis, float angle, float duration = 1.0f)
+    {
+        Quaternion from = Cube.transform.rotation;
+        Quaternion to = Cube.transform.rotation;
+        to *= Quaternion.Euler(axis * angle);
+
+        float elapsed = 0.0f;
+        while (elapsed < duration)
+        {
+            Cube.transform.rotation = Quaternion.Slerp(from, to, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        Cube.transform.rotation = to;
+    }
+
 }
